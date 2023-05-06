@@ -1,0 +1,19 @@
+version: '3'
+
+tasks:
+  dependencies:
+    desc: Install dependencies
+    cmds:
+      - go mod tidy
+  
+  build:
+    desc: Build the application
+    cmds:
+      - go build -o dockerizer -v main.go
+
+  run:
+    desc: Run the application
+    cmds:
+      - go run main.go create
+
+  
