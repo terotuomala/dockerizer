@@ -18,3 +18,4 @@ Dockerfile
 dockerizer
 dist/
 demo.yml
+checksums.txt

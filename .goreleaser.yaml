@@ -1,3 +1,5 @@
+version: 2
+
 builds:
   - env:
       - CGO_ENABLED=0
@@ -9,7 +11,7 @@ builds:
       - amd64
       - arm64
     # ensures mod timestamp to be the commit timestamp
-    mod_timestamp: '{{ .CommitTimestamp }}'
+    mod_timestamp: "{{ .CommitTimestamp }}"
     flags:
       # trims path
       - -trimpath
@@ -19,18 +21,14 @@ builds:
       - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{ .CommitDate }}
 
 # proxies from the go mod proxy before building
-# https://goreleaser.com/customization/gomod
+# https://goreleaser.com/cookbooks/build-go-modules/?h=gomod
 gomod:
   proxy: true
-  env:
-    - GOPROXY=https://proxy.golang.org,direct
-    - GOSUMDB=sum.golang.org
-    - GOPRIVATE=github.com/terotuomala/dockerizer
 
 # config the checksum filename
 # https://goreleaser.com/customization/checksum
 checksum:
-  name_template: 'checksums.txt'
+  name_template: "checksums.txt"
 
 # create a source tarball
 # https://goreleaser.com/customization/source/
@@ -51,33 +49,20 @@ signs:
   - cmd: cosign
     env:
     - COSIGN_EXPERIMENTAL=1
-    certificate: '${artifact}.pem'
+    certificate: "${artifact}.pem"
     args:
       - sign-blob
-      - '--output-certificate=${certificate}'
-      - '--output-signature=${signature}'
-      - '${artifact}'
+      - "--output-certificate=${certificate}"
+      - "--output-signature=${signature}"
+      - "${artifact}"
       - "--yes" # needed on cosign 2.0.0+
     artifacts: checksum
     output: true
-
-archives:
-  - id: replacements
-    replacements:
-      id: replacement
-      darwin: Darwin
-      linux: Linux
-      windows: Windows
-      386: i386
-      amd64: x86_64
-    format_overrides:
-      - goos: windows
-        format: zip
 
 changelog:
   sort: asc
   filters:
     exclude:
-      - '^docs:'
-      - '^test:'
+      - "^docs:"
+      - "^test:"
 
