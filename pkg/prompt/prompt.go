@@ -30,11 +30,11 @@ func getNodejsImageDistributions() []string {
 }
 
 func getGoVersions() []string {
-	return []string{"1.19", "1.20"}
+	return []string{"1.21", "1.22"}
 }
 
 func getNodeVersions() []string {
-	return []string{"16", "18", "19", "20"}
+	return []string{"18", "20", "21", "22"}
 }
 
 func getNodePackageManagers() []string {
