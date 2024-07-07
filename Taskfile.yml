@@ -15,5 +15,3 @@ tasks:
     desc: Run the application
     cmds:
       - go run main.go create
-
-  
